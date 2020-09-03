@@ -3,9 +3,11 @@ import Card from "../UI/Card";
 import { useStore } from "../../hooks-store/store";
 import "./ProductItem.css";
 
-const ProductItem = (props) => {
-  const dispatch = useStore()[1];
-  console.log("dispatch in ProductItem.js  is: ", dispatch);
+const ProductItem = React.memo((props) => {
+  console.log("Rendering ProductItem");
+  const dispatch = useStore(false)[1];
+
+  // console.log("dispatch in ProductItem.js  is: ", dispatch);
 
   const toggleFavHandler = () => {
     // toggleFav(props.id);
@@ -26,6 +28,6 @@ const ProductItem = (props) => {
       </div>
     </Card>
   );
-};
+});
 
 export default ProductItem;

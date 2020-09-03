@@ -4,7 +4,7 @@ let globalState = {};
 let listeners = [];
 let actions = {};
 
-export const useStore = () => {
+export const useStore = (shouldListen = true) => {
   const setState = useState(globalState)[1];
 
   const dispatch = (actionIdentifier, payload) => {
@@ -16,17 +16,23 @@ export const useStore = () => {
     }
   };
 
-  console.log("setState in store is: ", setState);
+  // console.log("setState in store is: ", setState);
 
   useEffect(() => {
-    listeners.push(setState);
+    if (shouldListen) {
+      //register one listener
+      listeners.push(setState);
 
-    console.log("listeners in store is: ", listeners);
+      // console.log("listeners in store is: ", listeners);
+    }
 
+    //unregister the listener when the component is destroyed
     return () => {
-      listeners = listeners.filter((li) => li !== setState);
+      if (shouldListen) {
+        listeners = listeners.filter((li) => li !== setState);
+      }
     };
-  }, []);
+  }, [setState, shouldListen]);
 
   return [globalState, dispatch];
 };

@@ -6,7 +6,7 @@ import "./Products.css";
 const Products = (props) => {
   const state = useStore()[0];
 
-  console.log("state in Products.js is: ", state);
+  // console.log("state in Products.js is: ", state);
 
   return (
     <ul className='products-list'>
